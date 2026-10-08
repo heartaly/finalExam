@@ -7,7 +7,7 @@ function App(){
   const [name, setName] = useState([]);
   const [course, setCourse] = useState([]);
   const [age, setAge] = useState([]);
-
+  const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
 
@@ -31,6 +31,19 @@ function App(){
       setCourse("");
     });
   };
+
+  const handleDeleteStudent = (id) => {
+    axios
+    .delete(`http://localhost:5000/students/${id}`)
+    .then(() => {
+      axios
+        .get("http://localhost:5000/students")
+        .then((response) => {
+          setStudents(response.data);
+        });
+    });
+  };
+
 
 
   return(
@@ -58,8 +71,8 @@ function App(){
           <p>Course: {student.course} </p>
           <p>Age: {student.age}</p>
 
-          <button type="button">Edit</button>
-          <button type="button">Delete</button>
+          <button type="button" onClick={() => handleEditStudent(student._id)}>Edit</button>
+          <button type="button" onClick={() => handleDeleteStudent(student._id)}>Delete</button>
         </div>
       ))}
 

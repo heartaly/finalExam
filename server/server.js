@@ -45,3 +45,11 @@ app.post("/students", async (req, res) => {
 });
 
 
+app.delete("/students/:id", async (req, res) => {
+    const id = req.params.id;
+    await Student.findByIdAndDelete(id);
+    res.json({ message: "Student deleted" });
+}
+);
+
+
