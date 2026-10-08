@@ -19,22 +19,37 @@ function App(){
 
   }, []);
 
+  const handleAddStudent = () => {
+    const newStudent = { name, course, age };
+    
+    axios
+    .post("http://localhost:5000/students", newStudent)
+    .then((response) => {
+      setStudents([...students, response.data]);
+      setName("");
+      setAge("");
+      setCourse("");
+    });
+  };
+
 
   return(
     <div>
       <h1>Student Management System</h1>
       <h2> Students </h2>
+  
+          <label> Name: </label>
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
 
-      <div>
-        <form>
-          <input type="text" value={name}> </input>
+     
+          <label> Course: </label>
+          <input type="text"  value={course} onChange={(e) => setCourse(e.target.value)}/>
 
-          <input type="text" value={course}> </input>
+          <label> Age: </label>
+          <input type="text" value={age} onChange={(e) => setAge(e.target.value)} />
 
-          <input type="text" value={age}> </input>
-        </form>
-      </div>
-
+          <button type="button" onClick={handleAddStudent}> Add Student </button>
+        
       {students.map((student) => (
         <div key={student.id}>
           <p>Name: {student.name}</p>

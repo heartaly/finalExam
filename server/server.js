@@ -37,14 +37,8 @@ app.listen(5000, () =>{
  
 
 app.post("/students", async (req, res) => {
-    const newStudent = {name, course, age};
-
-    setStudents([...students, response.data]);
-    setName("");
-    setAge("");
-    setCourse("");
-
-
+    const { name, course, age } = req.body;
+    const newStudent = new Student({ name, course, age });
 
     await newStudent.save();
     res.json(newStudent);
