@@ -3,6 +3,8 @@ import axios from "axios";
 
 function App(){
 
+  //Lobaton, Alyzza J. INF237
+  
   const [students, setStudents] = useState([]);
   const [name, setName] = useState([]);
   const [course, setCourse] = useState([]);
@@ -91,10 +93,9 @@ function App(){
           <button type="button" onClick={handleUpdateStudent}>Update Student</button>
         )
       }
-      
+    
         </form>
 
-        
 
       {students.map((student) => (
         <div key={student._id}>
