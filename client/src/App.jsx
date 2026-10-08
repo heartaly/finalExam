@@ -37,7 +37,8 @@ function App(){
     <div>
       <h1>Student Management System</h1>
       <h2> Students </h2>
-  
+
+          <form>
           <label> Name: </label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
 
@@ -49,12 +50,16 @@ function App(){
           <input type="text" value={age} onChange={(e) => setAge(e.target.value)} />
 
           <button type="button" onClick={handleAddStudent}> Add Student </button>
-        
+        </form>
+
       {students.map((student) => (
-        <div key={student.id}>
+        <div key={student._id}>
           <p>Name: {student.name}</p>
           <p>Course: {student.course} </p>
           <p>Age: {student.age}</p>
+
+          <button type="button">Edit</button>
+          <button type="button">Delete</button>
         </div>
       ))}
 
