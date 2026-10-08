@@ -44,7 +44,29 @@ function App(){
     });
   };
 
+  const handleEditStudent = (student) => {
+    setName(student.name);
+    setCourse(student.course);
+    setAge(student.age);
+    setEditingId(student._id);
+  };
 
+  const handleUpdateStudent = () => {
+    const updateStudent = { name, course, age };
+    axios
+      .put(`http://localhost:5000/students/${editingId}`, updateStudent)
+      .then(() => {
+        axios
+          .get("http://localhost:5000/students")
+          .then((response) => {
+            setStudents(response.data);
+            setName("");
+            setCourse("");
+            setAge("");
+            setEditingId(null);
+          });
+      });
+  };
 
   return(
     <div>
@@ -62,8 +84,17 @@ function App(){
           <label> Age: </label>
           <input type="text" value={age} onChange={(e) => setAge(e.target.value)} />
 
-          <button type="button" onClick={handleAddStudent}> Add Student </button>
+
+      {editingId === null ? (
+          <button type="button" onClick={handleAddStudent}>Add Student</button>
+        ) : (
+          <button type="button" onClick={handleUpdateStudent}>Update Student</button>
+        )
+      }
+      
         </form>
+
+        
 
       {students.map((student) => (
         <div key={student._id}>
@@ -71,7 +102,7 @@ function App(){
           <p>Course: {student.course} </p>
           <p>Age: {student.age}</p>
 
-          <button type="button" onClick={() => handleEditStudent(student._id)}>Edit</button>
+          <button type="button" onClick={() => handleEditStudent(student)}>Edit</button>
           <button type="button" onClick={() => handleDeleteStudent(student._id)}>Delete</button>
         </div>
       ))}

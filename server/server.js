@@ -53,3 +53,15 @@ app.delete("/students/:id", async (req, res) => {
 );
 
 
+app.put("/students/:id", async (req, res) => {
+    const id = req.params.id;
+    const { name, course, age } = req.body; 
+
+    const updateStudent = await Student.findByIdAndUpdate(id,
+        { name, course, age },
+    )
+
+    res.json(updateStudent);
+});
+
+
