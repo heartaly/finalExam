@@ -14,7 +14,7 @@ function App(){
   useEffect(() => {
 
     axios
-    .get("http://localhost:5000/students")
+    .get("/api/students")
     .then((response) => {
       setStudents(response.data);
     });
@@ -25,7 +25,7 @@ function App(){
     const newStudent = { name, course, age };
     
     axios
-    .post("http://localhost:5000/students", newStudent)
+    .post("/api/students", newStudent)
     .then((response) => {
       setStudents([...students, response.data]);
       setName("");
@@ -36,10 +36,10 @@ function App(){
 
   const handleDeleteStudent = (id) => {
     axios
-    .delete(`http://localhost:5000/students/${id}`)
+    .delete(`/api/students/${id}`)
     .then(() => {
       axios
-        .get("http://localhost:5000/students")
+        .get("/api/students")
         .then((response) => {
           setStudents(response.data);
         });
@@ -56,10 +56,10 @@ function App(){
   const handleUpdateStudent = () => {
     const updateStudent = { name, course, age };
     axios
-      .put(`http://localhost:5000/students/${editingId}`, updateStudent)
+      .put(`/api/students/${editingId}`, updateStudent)
       .then(() => {
         axios
-          .get("http://localhost:5000/students")
+          .get("/api/students")
           .then((response) => {
             setStudents(response.data);
             setName("");
